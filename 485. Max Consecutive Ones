@@ -1,0 +1,43 @@
+给定一个二进制数组，在这个数组中找到连续1的最大数目。
+
+例1：输入：[1,1,0,1,1,1]输出：3
+
+说明：前两位数字或后三位数字是连续的1。
+
+连续1的最大数量是3。
+
+注意：
+
+输入数组只包含0和1.
+
+输入数组的长度是一个正整数，不会超过10,000
+
+找到该数组中连续1的最大数。
+##approach 1     记下1的个数，并且均存到列表中   30ms 
+def findmax(num):
+    count=[]
+    cur=0
+    for i in num:
+        if i==1:
+            cur=cur+1
+        else:
+            cur=0
+        count.append(cur)
+    return max(count)
+
+print findmax([1,1,1,0,0,1,0,1,1,1,1,0,1])
+
+
+
+##2     29ms  将数值列表转为字符串，运用分割，
+def findMaxConsecutiveOnes(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+    
+        return max(''.join(map(str,nums)).split('0')).count('1')
+        
+ ##join:  以空格的形式将join的参数字符串连接起来。eg：'a'.join('mmmm')     'mamamam'
+ #map:定义一个映射函数，此处将数值列表转换为字符串str，
+ #split：分割，
