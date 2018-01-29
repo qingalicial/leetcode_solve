@@ -1,0 +1,31 @@
+给定一个2n整数的数组，你的任务是把这些整数分成n对整数，比如（a1，b1），（a2，b2），...，（an，bn），这使得min（ai，bi）对于所有我从1到n尽可能大。
+
+例1：输入：[1,4,3,2]输出：4
+
+说明：n是2，最大的和是4 = min（1,2）+ min（3,4）。
+
+感觉应该是先排序，然后按照从小到大的顺序，两个一组，这样的和最大
+
+！最开始很快写完了，然后状态显示为？，不是所有测试数据都通过了，然后加了最开始的判断，返回0的，才通过了.....终于是做完了第一个题
+
+##approach 1  最简洁
+def arrayPairSum(self, A):
+    return sum(sorted(A)[::2])
+
+##自己写的，while的效率不高
+def arrayPairSum(self, nums):
+        if len(nums)==0 and (len(nums)/2)>10000:
+            return 0
+        sum,i=0,0
+        nums.sort()
+        while i < len(nums):
+            sum+=nums[i]
+            i+=2
+            
+        return sum
+        
+        nums.sort()
+        s_so_far = 0
+        for i in range(0, len(nums)-1, 2):
+            s_so_far += nums[i]
+        return s_so_far
