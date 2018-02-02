@@ -1,0 +1,5 @@
+Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+给定一个字符串，只包含以下字符，判断输入字符是否合法
+
+The brackets must close in the correct order, "()" and "()[]{}" are all valid but "(]" and "([)]" are not.
+括号次序必须合法，如
