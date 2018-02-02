@@ -21,3 +21,10 @@ def twosum(nums,target):
     return -1,-1
 
 print twosum([3,2,4],6)
+
+def twoSum(self, nums, target):
+        d={}
+        for i,num in enumerate(nums):
+            if target-num in d:
+                return d[target-num], i
+            d[num]=i
