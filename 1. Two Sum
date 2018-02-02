@@ -1,0 +1,23 @@
+Given an array of integers, return indices of the two numbers such that they add up to a specific target.
+
+You may assume that each input would have exactly one solution, and you may not use the same element twice.
+给定一个整数数组，返回两个数的下标，使得它们相加等于一个特定的目标。
+每个输入有一个特定的解，每个数不会使用两次。
+Example:
+Given nums = [2, 7, 11, 15], target = 9,
+
+Because nums[0] + nums[1] = 2 + 7 = 9,
+return [0, 1].
+之前的题目列表有序，本题无序  
+
+本题知识点：i，j遍历列表，其中j应该是range(i+1, )
+def twosum(nums,target):
+    for i in range(len(nums)):
+        for j in range(i+1,len(nums)):
+            print i,j
+            print nums[i],nums[j],i,j
+            if nums[i]+nums[j]==target:
+                return i,j
+    return -1,-1
+
+print twosum([3,2,4],6)
