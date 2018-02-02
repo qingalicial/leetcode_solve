@@ -1,12 +1,59 @@
-注意题目说了两个重要条件：1，有序数组; 2，有唯一解所以解的两个数一定都是数组中唯一存在的数。
+给定一个已经按升序排序的整数数组，找到两个数字，使它们合计成一个特定的目标数字。
+
+函数twoSum应该返回这两个数字的索引，使它们合计成目标，其中index1必须小于index2。请注意，您返回的答案（index1和index2）不是从零开始的。
+
+您可能会认为每个输入都只有一个解决方案，而且您可能不会使用相同的元素两次
+
 
 Input: numbers={2, 7, 11, 15}, target=9
 
 Output: index1=1, index2=2
 
-思路一
+##思路一:利用两个指针从数组的两侧开始向中间移动，寻找第一对和为目标的两个数即为所求。
+def twosum(numbers,target):
+    left, right=0,len(numbers)-1  ##left right为指针
+    while left < right:
+        mu=numberrs[left]+numbers[right]
+        if target < mu:
+            left=left+1
+        elif target > mu:
+            right-=1
+        else:
+            return left+1,right+1
+    return -1,-1
+##提交后显示，有的算例无法通过，后面的没有return-1，-1的则通过了
 
-利用两个指针从数组的两侧开始向中间移动，寻找第一对和为目标的两个数即为所求。
-思路二
-
-扫描数组，用字典记录扫描历史，并判断可能成对的另一个数是否在数组中。
+##思路二:扫描数组，用字典记录扫描历史，并判断可能成对的另一个数是否在数组中。
+# two-pointer
+def twoSum1(self, numbers, target):
+    l, r = 0, len(numbers)-1
+    while l < r:
+        s = numbers[l] + numbers[r]
+        if s == target:
+            return [l+1, r+1]
+        elif s < target:
+            l += 1
+        else:
+            r -= 1
+ 
+# dictionary           
+def twoSum2(self, numbers, target):
+    dic = {}
+    for i, num in enumerate(numbers):
+        if target-num in dic:
+            return [dic[target-num]+1, i+1]
+        dic[num] = i
+ 
+# binary search        
+def twoSum(self, numbers, target):
+    for i in xrange(len(numbers)):
+        l, r = i+1, len(numbers)-1
+        tmp = target - numbers[i]
+        while l <= r:
+            mid = l + (r-l)//2
+            if numbers[mid] == tmp:
+                return [i+1, mid+1]
+            elif numbers[mid] < tmp:
+                l = mid+1
+            else:
+                r = mid-1
