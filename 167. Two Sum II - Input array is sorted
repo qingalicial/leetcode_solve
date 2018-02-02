@@ -13,15 +13,15 @@ Output: index1=1, index2=2
 def twosum(numbers,target):
     left, right=0,len(numbers)-1  ##left right为指针
     while left < right:
-        mu=numberrs[left]+numbers[right]
-        if target < mu:
+        mu=numbers[left]+numbers[right]
+        if target > mu:
             left=left+1
-        elif target > mu:
+        elif target < mu:
             right-=1
         else:
             return left+1,right+1
     return -1,-1
-##提交后显示，有的算例无法通过，后面的没有return-1，-1的则通过了
+##提交后显示，有的算例无法通过，后面的没有return-1，-1的则通过了    调试发现，target和mu的小于与大于写错了。。。
 
 ##思路二:扫描数组，用字典记录扫描历史，并判断可能成对的另一个数是否在数组中。
 # two-pointer
@@ -36,14 +36,16 @@ def twoSum1(self, numbers, target):
         else:
             r -= 1
  
-# dictionary           
+# dictionary 
+##对于一个可迭代的（iterable）/可遍历的对象（如列表、字符串），enumerate将其组成一个索引序列，利用它可以同时获得索引和值
 def twoSum2(self, numbers, target):
     dic = {}
     for i, num in enumerate(numbers):
         if target-num in dic:
             return [dic[target-num]+1, i+1]
         dic[num] = i
- 
+#知道怎么回事，还是没太懂，dic的构造，存储的键与值的关系 
+
 # binary search        
 def twoSum(self, numbers, target):
     for i in xrange(len(numbers)):
