@@ -1,21 +1,21 @@
-Merge two sorted linked lists and return it as a new list. The new list should be made by splicing together the nodes of the first two lists.
+The new list should be made by splicing together the nodes of the first two lists.
 
 Example:
 
 Input: 1->2->4, 1->3->4
 Output: 1->1->2->3->4->4
-合并两个有序列表
+合并两个有序列表,返回一个新的列表，
 
 
 def mergeTwoLists(self, l1, l2):
     head = dummy = ListNode(0)##定义一个节点self.val=x;  self.next=None;  
     while l1 and l2:
         if l1.val < l2.val:
-            head.next = ListNode(l1.val)  # or l1
-            l1 = l1.next
+            head.next = ListNode(l1.val)  # or l1   head是新的列表，将l1的第一个节点链接过来
+            l1 = l1.next       然后释放掉第一个l1节点
         else:
             head.next = ListNode(l2.val)  # or l2
             l2 = l2.next
         head = head.next
-    head.next = l1 or l2
+    head.next = l1 or l2   #是否是用来补l1中有空列表的
     return dummy.next
