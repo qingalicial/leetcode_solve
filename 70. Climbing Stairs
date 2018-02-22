@@ -17,13 +17,17 @@ Explanation:  There are three ways to climb to the top.
 3. 2 steps + 1 step
 
 Basically it's a fibonacci.
-
+##构造fibonacci数列
+def climbStairs(self, n):
+    a, b = 1, 1
+    for i in range(n):
+        a, b = b, a + b
+    return a
+    
+    
+##这个也是往fibonacci数列上靠，只是没有理清思路，绕了curr进来，所求就是fibonacci，则可简化为第一种方案
 class Solution(object):
     def climbStairs(self, n):
-        """
-        :type n: int
-        :rtype: int
-        """
         if n <= 2:
             return n
             
@@ -34,24 +38,22 @@ class Solution(object):
             first, second = second, curr
         
         return curr
-        
-def climbStairs(self, n):
-    a, b = 1, 1
-    for i in range(n):
-        a, b = b, a + b
-    return a
+ 
+
     
     
     
-    
+##递归思想，总归还是一个fibonacci数列，只是是否了解本质的区别    
 # Top down - TLE
 def climbStairs1(self, n):
-    if n == 1:
+    if n == 1:   ##可以简化为  if n<=2:return n,虽然简洁，不过都是后续想明白了的优化，哈哈
         return 1
     if n == 2:
         return 2
-    return self.climbStairs(n-1)+self.climbStairs(n-2)
+    return self.climbStairs(n-1)+self.climbStairs(n-2)###关于递归调用，需要加self.!!!!!
  
+ 
+##后续没有再看，觉得上述方法比较好
 # Bottom up, O(n) space
 def climbStairs2(self, n):
     if n == 1:
