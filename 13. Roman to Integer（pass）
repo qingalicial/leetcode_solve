@@ -1,0 +1,15 @@
+Given a roman numeral, convert it to an integer.
+
+Input is guaranteed to be within the range from 1 to 3999.
+"DCXXI"
+
+没搞懂这题什么意思，怎么算的，考察字典应用吧。
+def romanToInt(self, s):
+    roman = {'M': 1000,'D': 500 ,'C': 100,'L': 50,'X': 10,'V': 5,'I': 1}###为什么是这几个
+    z = 0
+    for i in range(0, len(s) - 1):
+       if roman[s[i]] < roman[s[i+1]]:
+          z -= roman[s[i]]
+       else:
+          z += roman[s[i]]
+     return z + roman[s[-1]]
