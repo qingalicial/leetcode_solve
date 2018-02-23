@@ -1,0 +1,39 @@
+Given a non-negative integer represented as a non-empty array of digits, plus one to the integer.
+
+You may assume the integer do not contain any leading zero, except the number 0 itself.
+
+The digits are stored such that the most significant digit is at the head of the list.
+
+
+给定一个非负整数，表示成一个非空数组，加上一个整数。  可以假设整数不包含任何前导0
+给定一个表示为非空数字数组的非负整数，再加上一个整数。
+数字被存储为使得最高有效数字位于列表的头部。
+
+把一个整数个位、十位等分开，写成数组的形式，然后做加法，要考虑进位等问题   返回的还是一个数组
+
+def convert(digits):
+    length=len(digits)
+    for i in range(length-1,-1,-1):
+        num=digits[i]+1
+        print i,digits
+        if num>9: ##num=10了,要进位
+            digits[i]=0
+            if i==0:##若是首位进了一位，则增加一个1
+                digits=[1]+digits
+        else:
+            digits[i]+=1
+            break
+    return digits
+    
+    
+    
+
+eg:  [3,5,7]   358
+
+def plusOne(digits):
+    num = 0
+    for i in range(len(digits)):
+    	num += digits[i] * pow(10, (len(digits)-1-i))
+    return [int(i) for i in str(num+1)]
+
+return map(int, list(str(int(''.join(map(str, digits))) + 1)))
