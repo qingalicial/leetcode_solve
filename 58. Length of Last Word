@@ -1,0 +1,50 @@
+Given a string s consists of upper/lower-case alphabets and empty space characters ' ', return the length of last word in the string.
+
+If the last word does not exist, return 0.
+
+Note: A word is defined as a character sequence consists of non-space characters only.
+给定一个字符串s，包含大小写以及空格字符串，返回最后一个单词的长度。
+若最后一个单词不存在，则返回0
+Example:
+
+Input: "Hello World"
+Output: 5
+
+
+我的想法，然后‘a ’通不过检验   错误示范
+           if s==" " or s== "":
+            return 0
+        a=s[::-1]
+        if a[0]==' ':
+            return len(a)
+        else:
+            return a.find(' ')
+        
+        
+return len(s.rstrip(' ').split(' ')[-1])
+return len(s.strip().split(' ')[-1])
+
+def lengthOfLastWord(self, s):
+    # (going backwards) find first non-space char##找到首个不为空的索引
+    for i in range(len(s) - 1, -2, -1):
+        if i == -1 or s[i] != " ":
+            break
+    
+    # keep going until a space or end of string
+    for j in range(i, -2, -1):
+        if j == -1 or s[j] == " ":##找到下一个空格，
+            return i - j
+            
+            
+def lengthOfLastWord(self, s):
+        c = 0
+        for i in xrange(len(s) -  1, -1, -1):
+            # If we haven't seen any character, continue.
+            if s[i] == ' ' and c == 0:
+                continue
+            # We have seen at least one character and the word ends now.
+            elif s[i] == ' ':
+                return c
+            else:
+                c += 1
+        return c
