@@ -1,0 +1,132 @@
+Given a string, find the length of the longest substring without repeating characters.
+给定一个字符串，寻找没有重复的最长的子串
+Examples:
+
+Given "abcabcbb", the answer is "abc", which the length is 3.
+
+Given "bbbbb", the answer is "b", with the length of 1.
+
+Given "pwwkew", the answer is "wke", with the length of 3. Note that the answer must be a substring,
+"pwke" is a subsequence and not a substring.
+
+
+        
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        dic, res, start, = {}, 0, 0
+        for i, ch in enumerate(s):   ##i为列表的下标， ch为下标对应的值，转换为字典
+            # when char already in dictionary
+            if ch in dic:
+                # check length from start of string to index
+                res = max(res, i-start)
+                # update start of string index to the next index
+                start = max(start, dic[ch]+1)
+            # add/update char to/of dictionary 
+            dic[ch] = i
+        # answer is either in the begining/middle OR some mid to the end of string
+        return max(res, len(s)-start)
+        
+        
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        last, res, st = {}, 0, 0
+        for i, v in enumerate(string):
+            if v not in last or last[v] < st:
+                res = max(res, i - st + 1)
+            else:
+                st = last[v] + 1
+            last[v] = i
+        return res
+        
+class Solution:
+    # @return an integer
+    def lengthOfLongestSubstring(self, s):
+        start = maxLength = 0
+        usedChar = {}
+        
+        for i in range(len(s)):
+            if s[i] in usedChar and start <= usedChar[s[i]]:
+                start = usedChar[s[i]] + 1
+            else:
+                maxLength = max(maxLength, i - start + 1)
+
+            usedChar[s[i]] = i
+
+        return maxLength
+        
+def lengthOfLongestSubstring(self, s):
+
+    used = {}
+    max_length = start = 0
+    for i, c in enumerate(s):
+        if c in used and start <= used[c]:
+            start = used[c] + 1
+        else:
+            max_length = max(max_length, i - start + 1)
+            
+        used[c] = i
+
+    
+    return max_length
+        
+
+        
+class Solution:
+    # @return an integer
+    def lengthOfLongestSubstring(self, s):
+        start = maxLength = 0
+        usedChar = {}
+        
+        for i in range(len(s)):
+            if s[i] in usedChar and start <= usedChar[s[i]]:
+                start = usedChar[s[i]] + 1
+            else:
+                maxLength = max(maxLength, i - start + 1)
+
+            usedChar[s[i]] = i
+
+        return maxLength
+        
+def lengthOfLongestSubstring(self, s):
+
+    used = {}
+    max_length = start = 0
+    for i, c in enumerate(s):
+        if c in used and start <= used[c]:
+            start = used[c] + 1
+        else:
+            max_length = max(max_length, i - start + 1)
+            
+        used[c] = i
+
+    
+    return max_length
+        
+Main idea:
+
+Loop for the string s, and use a list called temp to save the characters that are in a continuous non-repeated sub-string.
+If character s[i] not in temp, then add it to temp.
+If character s[i] in temp, update result if the length of temp is greater than result(who records the longest sub-string length). Then delete from temp the characters that are in front of s[i], and add s[i] to tail of temp.
+Loop to end of s, return result.
+Code:
+
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        result=0
+        temp=[]
+        for item in s:
+            if item in temp:
+                if len(temp)>result:
+                    result=len(temp)
+                temp=temp[temp.index(item)+1:]
+                temp.append(item)
+            else:
+                temp.append(item)
+        return max(len(temp),result)
+Hint:
+
+DP could be better leveraged to complicated problems. Try to design simple logic for easy problems.
