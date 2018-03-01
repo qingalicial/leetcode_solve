@@ -1,0 +1,66 @@
+You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and
+each of their nodes contain a single digit. Add the two numbers and return it as a linked list.
+给定两个非空有序链表，代表两个非负整数，数字存储逆序，每个节点包含1个数字，数字相加
+You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+
+Example
+
+Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
+Output: 7 -> 0 -> 8
+Explanation: 342 + 465 = 807.
+自己一开始当做了列表，那么要考虑数字相加和取多少位的问题，看了讨论，基本都是当作链表再做，所以本题先学习
+        
+        
+ def addTwoNumbers(self, l1, l2):
+    dummy = cur = ListNode(0)  ##dummy为求和的链表的头指针，cur为临时指针
+    carry = 0
+    while l1 or l2 or carry:   ##carry用来计数，即每位相加之和，先加l1的值，再加l2
+        if l1:
+            carry += l1.val
+            l1 = l1.next
+        if l2:
+            carry += l2.val
+            l2 = l2.next
+        cur.next = ListNode(carry%10)    ##注意这里是cur，不是dummycu
+        cur = cur.next
+        carry //= 10
+    return dummy.next     ##注意返回的是头指针 
+    
+    
+  class Solution:
+    def addTwoNumbers(self, l1, l2):
+        def toint(node):
+            return node.val + 10 * toint(node.next) if node else 0
+        def tolist(n):
+            node = ListNode(n % 10)
+            if n > 9:
+                node.next = tolist(n / 10)
+            return node
+        return tolist(toint(l1) + toint(l2))
+Iterative tolist instead of recursive:
+
+class Solution:
+    def addTwoNumbers(self, l1, l2):
+        def toint(node):
+            return node.val + 10 * toint(node.next) if node else 0
+        n = toint(l1) + toint(l2)
+        first = last = ListNode(n % 10)
+        while n > 9:
+            n /= 10
+            last.next = last = ListNode(n % 10)
+        return first
+And a very different solution that could sum arbitrarily many addends, not just two:
+
+
+未看
+class Solution:
+    def addTwoNumbers(self, l1, l2):
+        addends = l1, l2
+        dummy = end = ListNode(0)
+        carry = 0
+        while addends or carry:
+            carry += sum(a.val for a in addends)
+            addends = [a.next for a in addends if a.next]
+            end.next = end = ListNode(carry % 10)
+            carry /= 10
+        return dummy.next
