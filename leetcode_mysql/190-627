@@ -1,0 +1,87 @@
+196. Delete Duplicate Emails
+删除重复邮件
+keeping only unique emails based on its smallest Id.
++----+------------------+
+| Id | Email            |
++----+------------------+
+| 1  | john@example.com |
+| 2  | bob@example.com  |
+| 3  | john@example.com |
++----+------------------+
+
+这个不太清楚
+delete from Person where id not in( 
+    select t.id from (
+        select min(id) as id from Person group by email
+    ) 
+)
+比较直接
+DELETE p1
+FROM Person p1, Person p2
+WHERE p1.Email = p2.Email AND
+p1.Id > p2.Id
+
+
+197. Rising Temperature
+Given a Weather table, write a SQL query to find all dates' Ids with higher temperature compared to its previous (yesterday's) dates.
++---------+------------+------------------+
+| Id(INT) | Date(DATE) | Temperature(INT) |
++---------+------------+------------------+
+|       1 | 2015-01-01 |               10 |
+|       2 | 2015-01-02 |               25 |
+|       3 | 2015-01-03 |               20 |
+|       4 | 2015-01-04 |               30 |
++---------+------------+------------------+
+给定天气表，查找今天比昨天温度高的id  难点在于怎么连接昨天与今天，此次使用函数datediff
+select a.Id from weather a inner join weather b on datediff(a.Date,b.Date)=1
+where a.Temperature>b.Temperature
+
+595. Big Countries
++-----------------+------------+------------+--------------+---------------+
+| name            | continent  | area       | population   | gdp           |
++-----------------+------------+------------+--------------+---------------+
+| Afghanistan     | Asia       | 652230     | 25500100     | 20343000      |
+| Albania         | Europe     | 28748      | 2831741      | 12960000      |
+| Algeria         | Africa     | 2381741    | 37100000     | 188681000     |
+| Andorra         | Europe     | 468        | 78115        | 3712000       |
+| Angola          | Africa     | 1246700    | 20609294     | 100990000     |
++-----------------+------------+------------+--------------+---------------+
+A country is big if it has an area of bigger than 3 million square km or a population of more than 25 million.
+
+Write a SQL solution to output big countries' name, population and area.
+大国的定义：area>3 or population>25   简单的单表带条件查询，难点在于，，，，，25million多少个0
+select name, population ,area from world where population >25000000 or area >3000000
+
+
+
+596. Classes More Than 5 Students
+列出学生超过5个的班
+select class from courses group by class having count(distinct student) > 4
+
+
+620. Not Boring Movies
+output movies with an odd numbered ID and a description that is not 'boring'  Order the result by rating
++---------+-----------+--------------+-----------+
+|   id    | movie     |  description |  rating   |
++---------+-----------+--------------+-----------+
+|   1     | War       |   great 3D   |   8.9     |
+|   2     | Science   |   fiction    |   8.5     |
+|   3     | irish     |   boring     |   6.2     |
+|   4     | Ice song  |   Fantacy    |   8.6     |
+|   5     | House card|   Interesting|   9.1     |
++---------+-----------+--------------+-----------+
+select * from cinema where id%2!=0 and description !='boring' order by rating desc
+
+627. Swap Salary
+m=male and f=female values. Swap all f and m values 
+(i.e., change all f values to m and vice versa) with a single update query and no intermediate temp table.
+交换性别
+| id | name | sex | salary |
+|----|------|-----|--------|
+| 1  | A    | m   | 2500   |
+| 2  | B    | f   | 1500   |
+| 3  | C    | m   | 5500   |
+| 4  | D    | f   | 500    |
+update Salary set sex=if(sex='m','f','m')
+
+626. Exchange Seats
