@@ -1,0 +1,30 @@
+27   80   283
+283  移除数组中所有的0，返回数组
+
+##approach  2     runtime:28ms
+def movezero(nums):
+    num_0=nums.count(0)
+    for i in range(num_0):
+        nums.remove(0)
+        nums.append(0)
+    return nums
+    
+    
+一种方法是把非0元存到一个数组temp，然后把temp赋值给前几个数，其余空间0补齐
+还有一种方法引入一个y，记录0所在位置，然后将下一个非0元与0交换。
+
+27   移除移除该给定数值，然后返回数组的新长度，不要使用额外空间，元素次序可以改变
+def removeElement(self, nums, val):
+        for i in range(nums.count(val)):
+            nums.remove(val)
+        return len(nums)
+        
+def removeElement(self, nums, val):
+        for x in nums[:]:
+            if x == val:
+                nums.remove(val)
+        return len(nums)
+        
+        
+        
+80  
