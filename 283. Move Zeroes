@@ -27,3 +27,15 @@ def movezero(nums):
         nums.append(0)
     return nums
        
+def movezero(num):
+    temp=[]
+    for i in range(len(num)):
+        if num[i]:
+            temp.append(num[i])
+    for i in range(len(temp)):
+        num[i]=temp[i]
+    for i in range(len(temp),len(num),1):
+        num[i]=0
+    return num
+        
+print movezero([1,2,3,0,2,0])
