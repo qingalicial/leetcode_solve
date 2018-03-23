@@ -24,17 +24,7 @@ def twosum(numbers,target):
 ##提交后显示，有的算例无法通过，后面的没有return-1，-1的则通过了    调试发现，target和mu的小于与大于写错了。。。
 
 ##思路二:扫描数组，用字典记录扫描历史，并判断可能成对的另一个数是否在数组中。
-# two-pointer
-def twoSum1(self, numbers, target):
-    l, r = 0, len(numbers)-1
-    while l < r:
-        s = numbers[l] + numbers[r]
-        if s == target:
-            return [l+1, r+1]
-        elif s < target:
-            l += 1
-        else:
-            r -= 1
+
  
 # dictionary 
 ##对于一个可迭代的（iterable）/可遍历的对象（如列表、字符串），enumerate将其组成一个索引序列，利用它可以同时获得索引和值
