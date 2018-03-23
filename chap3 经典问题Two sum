@@ -1,1 +1,15 @@
-167
+167    125   344   345   11
+对撞指针，双索引
+167:  一个有序数组中，寻找索引，使得两个数相加之和为target
+##思路一:利用两个指针从数组的两侧开始向中间移动，寻找第一对和为目标的两个数即为所求。
+def twosum(numbers,target):
+    left, right=0,len(numbers)-1  ##left right为指针
+    while left < right:
+        mu=numbers[left]+numbers[right]
+        if target > mu:
+            left=left+1
+        elif target < mu:
+            right-=1
+        else:
+            return left+1,right+1
+    
