@@ -31,9 +31,60 @@ def sortColors(self, nums):
         result+=nums1
         result+=nums2
         return result
-但是本题要求，将nums2插入nums1中，所以，应该从尾往前排
+但是本题要求，将nums2插入nums1中，所以，应该从尾往前排  要补充一个m=0的情况
+    def merge(self, nums1, m, nums2, n):
+        while m>0 and n>0:
+            if nums1[m-1]>nums2[n-1]:
+                nums1[m+n-1]=nums1[m-1]
+                m-=1
+            else:
+                nums1[m+n-1]=nums2[n-1]
+                n-=1
+        if n>0:##if m=0
+            nums1[:n]=nums2[:n]
 
-
-215:
+215:  查找未排序数组中第k个最大的元素。请注意，它是排序顺序中的第k个最大元素，而不是第k个不同元素。
 快排的部分
-        
+其中快速排序常见版本：
+def QuickSort(myList,start,end):
+    #判断low是否小于high,如果为false,直接返回
+    if start < end:
+        i,j = start,end
+        #设置基准数
+        base = myList[i]
+
+        while i < j:
+            #如果列表后边的数,比基准数大或相等,则前移一位直到有比基准数小的数出现
+            while (i < j) and (myList[j] >= base):
+                j = j - 1
+
+            #如找到,则把第j个元素赋值给第个元素i,此时表中i,j个元素相等
+            myList[i] = myList[j]
+
+            #同样的方式比较前半区
+            while (i < j) and (myList[i] <= base):
+                i = i + 1
+            myList[j] = myList[i]
+        #做完第一轮比较之后,列表被分成了两个半区,并且i=j,需要将这个数设置回base
+        myList[i] = base
+
+        #递归前后半区
+        QuickSort(myList, start, i - 1)
+        QuickSort(myList, j + 1, end)
+    return myList
+快速排序的算法树上版本：
+def quick_sort(array, l, r):  
+    if l < r:  
+        q = partition(array, l, r)  
+        quick_sort(array, l, q - 1)  
+        quick_sort(array, q + 1, r)  
+  
+def partition(array, l, r):  
+    x = array[r]  
+    i = l - 1  
+    for j in range(l, r):  
+        if array[j] <= x:  
+            i += 1  
+            array[i], array[j] = array[j], array[i]  
+    array[i + 1], array[r] = array[r], array[i+1]  
+    return i + 1          
