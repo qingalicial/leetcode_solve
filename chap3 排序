@@ -72,7 +72,7 @@ def QuickSort(myList,start,end):
         QuickSort(myList, start, i - 1)
         QuickSort(myList, j + 1, end)
     return myList
-快速排序的算法树上版本：
+快速排序的算法书上版本：
 def quick_sort(array, l, r):  
     if l < r:  
         q = partition(array, l, r)  
@@ -87,4 +87,42 @@ def partition(array, l, r):
             i += 1  
             array[i], array[j] = array[j], array[i]  
     array[i + 1], array[r] = array[r], array[i+1]  
-    return i + 1          
+    return i + 1 
+    
+    
+多重解法     我选择的选择排序
+# O(nlgn) time
+def findKthLargest1(self, nums, k):
+    return sorted(nums, reverse=True)[k-1]
+    
+# O(nk) time, bubble sort idea, TLE
+def findKthLargest2(self, nums, k):
+    for i in xrange(k):
+        for j in xrange(len(nums)-i-1):
+            if nums[j] > nums[j+1]:
+                # exchange elements, time consuming
+                nums[j], nums[j+1] = nums[j+1], nums[j]
+    return nums[len(nums)-k]
+    
+# O(nk) time, selection sort idea
+def findKthLargest3(self, nums, k):
+    for i in xrange(len(nums), len(nums)-k, -1):
+        tmp = 0
+        for j in xrange(i):
+            if nums[j] > nums[tmp]:
+                tmp = j
+        nums[tmp], nums[i-1] = nums[i-1], nums[tmp]
+    return nums[len(nums)-k]
+    
+# O(k+(n-k)lgk) time, min-heap
+def findKthLargest4(self, nums, k):
+    heap = []
+    for num in nums:
+        heapq.heappush(heap, num)
+    for _ in xrange(len(nums)-k):
+        heapq.heappop(heap)
+    return heapq.heappop(heap)
+
+# O(k+(n-k)lgk) time, min-heap        
+def findKthLargest5(self, nums, k):
+    return heapq.nlargest(k, nums)[k-1]
