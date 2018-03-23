@@ -6,9 +6,6 @@ def sortColors(self, nums):
         nums[0:a]=[0]*a
         nums[a:a+b]=[1]*b
         nums[a+b:]=[2]*c
-
-
-
 三路快排
   a,b,c=0,0,len(nums)-1
         while b <= c:
