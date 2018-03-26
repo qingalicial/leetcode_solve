@@ -1,6 +1,61 @@
-209  3
+209  3   438  
 209：给定n个正整数和一个正整数s的数组，求出总和≥s 的连续子数组的最小长度。如果没有，则返回0。
 双索引
 暴力解：o（n^3）[i,...,j]  
+def minSubArrayLen(self, s, nums):
+        if len(nums)==0 or sum(nums) < s:
+            return 0
+        i,j=0,0
+        result=len(nums)
+        su=nums[0]
+        while j < len(nums) :
+            if su >= s:
+                result=min(result,j-i+1)
+                su=su-nums[i]
+                i+=1
+            else:
+                j+=1
+                if j < len(nums):#不检查，则会越界
+                    su+=nums[j]
+         return result
+                    
+   双索引的，首先赋初值给su，然后注意循环中出现累加，注意判断指针是否越界，
+   
+   
+438:给定s和p，找出s中这样的下标，使得   
+s: "cbaebabacd" p: "abc"
+Output:
+[0, 6]
+
+Explanation:
+The substring with start index = 0 is "cba", which is an anagram of "abc".
+The substring with start index = 6 is "bac", which is an anagram of "abc".
+一开始写成迭代函数的样子，可是会遇到s很长的问题，效率很慢
+注意python中，字符asicc码，ord（‘a’）
+
+def findAnagrams(self, s, p):
+        """
+        :type s: str
+        :type p: str
+        :rtype: List[int]
+        """
+        if len(s) <len(p):
+            return []
+        result=[]
+        ch_p,ch_s=[0]*26,[0]*26
+        for e in p:
+            ch_p[ord(e)-ord('a')]+=1
+        for ch in s[:len(p)]:  #初始化
+            ch_s[ord(ch)-ord('a')]+=1
+        for i in range(len(s)-len(p)+1):
+            if ch_s == ch_p:
+                result.append(i)
+            if i==len(s)-len(p):
+                break
+            ch_s[ord(s[i])-ord('a')]-=1
+            ch_s[ord(s[i+len(p)])-ord('a')]+=1
+        return result
 
 3：在一个字符串中寻找没有重复字母的最长子串
+
+
